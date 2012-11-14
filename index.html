@@ -110,28 +110,32 @@
 
   
   <h1>Using the API</h1>
+<p>
+    Using Import2 API, you can provide customers of your application with a dead-simple migration process from the
+    app they are substituting with yours. With this guide we will explain and provide code snippets for all
+    common integration scenarios.
+</p>
 
-<p>Using Import2 API, you can provide customers of your application with a dead-simple migration process from the
-app they are substituting with yours. With this guide we will explain and provide code snippets for all
-common integration scenarios.</p>
+<h2 id="app-registration">Registering Your Application</h2>
+<p>
+    Currently to register your app you have to contact us at
+    <a href="mailto:hassle.free.migration@import2.com">hassle.free.migration@import2.com&#8221;</a>.
+    We will send you secret API token, which is required to perform API requests.
+</p>
 
-<h2><a id="app-registration"></a>Registering Your Application</h2>
-
-<p>Currently to register your app you have to contact us at <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#x61;&#x73;&#115;&#108;&#101;&#x2e;&#x66;&#x72;&#101;&#101;&#46;&#x6d;&#105;&#103;&#x72;&#x61;&#116;&#x69;&#111;&#110;&#64;&#x69;&#x6d;&#x70;&#x6f;&#114;&#x74;&#50;&#46;&#99;&#x6f;&#x6d;">&#104;&#x61;&#115;&#115;&#x6c;&#x65;&#x2e;&#x66;&#x72;&#x65;&#x65;&#46;&#x6d;&#105;&#x67;&#x72;&#x61;&#116;&#105;&#x6f;&#x6e;&#x40;&#x69;&#109;&#x70;&#111;&#114;&#x74;&#x32;&#x2e;&#x63;&#x6f;&#x6d;</a>. We will send you
-secret API token, which is required to perform API requests.</p>
-
-<h2><a id="authentication"></a>Authentication</h2>
-
-<p>Import2 API uses HTTP Basic Authentication. We expect to receive your API token as value of username parameter.
-Here is an example of using API token through curl:</p>
+<h2 id="authentication">Authentication</h2>
+<p>
+    Import2 API uses HTTP Basic Authentication. We expect to receive your API token as value of username parameter.
+    Here is an example of using API token through curl:
+</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ curl -u aafbdfde226327dafc73:X https://www.import2.com/api/v1/imports/3514012b6860e8</span></code></pre></td></tr></table></div></figure>
 
+<h2 id="sandbox">Sandbox</h2>
+&#8230;.
 
-<h2><a id="sandbox"></a>Sanbox</h2>
 
-<p>&#8230;.</p>
 
   
 </article>
