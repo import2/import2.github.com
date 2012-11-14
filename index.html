@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://import2.github.com">
+  <link rel="canonical" href="http://developers.import2.com">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -82,23 +82,22 @@
     <section class="well">
     <ul id="api-toc" class="nav nav-list">
         <li class="nav-header">Import2 API</li>
-        
         <li class="page">
-            <a href="/atom.xml"></a>
+            <a href="/">Using the API</a>
+            <ul class="nav nav-list">
+                <li><a href="#app-registration">App Registration</a></li>
+                <li><a href="#authentication">Authentication</a></li>
+                <li><a href="#sandbox">Sandbox</a></li>
+            </ul>
         </li>
-        
         <li class="page">
-            <a href="/blog/archives/index.html">Blog Archive</a>
+            <a href="/">API Reference</a>
+            <ul class="nav nav-list">
+                <li><a href="#app-registration">Requesting Import</a></li>
+                <li><a href="#authentication">...</a></li>
+                <li><a href="#sandbox">...</a></li>
+            </ul>
         </li>
-        
-        <li class="page">
-            <a href="/blog/index.html"></a>
-        </li>
-        
-        <li class="page">
-            <a href="/index.html">false</a>
-        </li>
-        
     </ul>
 </section>
 
@@ -110,39 +109,30 @@
 <article role="article" class="span9">
 
   
-  Test Page
+  <h1>Using the API</h1>
 
-  
-    <footer>
-      <p class="meta">
-        
-        
+<p>Using Import2 API, you can provide customers of your application with a dead-simple migration process from the
+app they are substituting with yours. With this guide we will explain and provide code snippets for all
+common integration scenarios.</p>
+
+<h2><a id="app-registration"></a>Registering Your Application</h2>
+
+<p>Currently to register your app you have to contact us at <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#x61;&#x73;&#115;&#108;&#101;&#x2e;&#x66;&#x72;&#101;&#101;&#46;&#x6d;&#105;&#103;&#x72;&#x61;&#116;&#x69;&#111;&#110;&#64;&#x69;&#x6d;&#x70;&#x6f;&#114;&#x74;&#50;&#46;&#99;&#x6f;&#x6d;">&#104;&#x61;&#115;&#115;&#x6c;&#x65;&#x2e;&#x66;&#x72;&#x65;&#x65;&#46;&#x6d;&#105;&#x67;&#x72;&#x61;&#116;&#105;&#x6f;&#x6e;&#x40;&#x69;&#109;&#x70;&#111;&#114;&#x74;&#x32;&#x2e;&#x63;&#x6f;&#x6d;</a>. We will send you
+secret API token, which is required to perform API requests.</p>
+
+<h2><a id="authentication"></a>Authentication</h2>
+
+<p>Import2 API uses HTTP Basic Authentication. We expect to receive your API token as value of username parameter.
+Here is an example of using API token through curl:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl -u aafbdfde226327dafc73:X https://www.import2.com/api/v1/imports/3514012b6860e8</span></code></pre></td></tr></table></div></figure>
 
 
+<h2><a id="sandbox"></a>Sanbox</h2>
 
+<p>&#8230;.</p>
 
-
-
-
-
-  
-
-
-<time datetime="2012-11-13T18:31:00-08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2012</time>
-        
-      </p>
-      
-        <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://import2.github.com/index.html" data-via="" data-counturl="http://import2.github.com/index.html" >Tweet</a>
-  
-  
-  
-</div>
-
-      
-      
-    </footer>
   
 </article>
     </div>
@@ -161,16 +151,6 @@
 
 
 
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
 
 
 
