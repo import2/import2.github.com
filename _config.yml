@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://import2.github.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: http://google.com/search
+title: Import2 Developers API
+subtitle: Documentation of Import2 API-s
+author: Import2
+simple_search:
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -16,7 +16,7 @@ description:
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
+subscribe_rss:
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
@@ -51,7 +51,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # and add an array with the asides you want to use.
 # blog_index_asides:
 # post_asides:
-# page_asides:
+page_asides: [custom/asides/api_table_of_contents.html]
 
 # ----------------------- #
 #   3rd Party Settings    #
