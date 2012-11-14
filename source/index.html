@@ -1,0 +1,37 @@
+---
+layout: page
+title: false
+date: 2012-11-13 18:31
+comments: true
+sharing: true
+footer: false
+---
+
+<h1>Using the API</h1>
+<p>
+    Using Import2 API, you can provide customers of your application with a dead-simple migration process from the
+    app they are substituting with yours. With this guide we will explain and provide code snippets for all
+    common integration scenarios.
+</p>
+
+<h2 id="app-registration">Registering Your Application</h2>
+<p>
+    Currently to register your app you have to contact us at
+    <a href="mailto:hassle.free.migration@import2.com">hassle.free.migration@import2.com"</a>.
+    We will send you secret API token, which is required to perform API requests.
+</p>
+
+<h2 id="authentication">Authentication</h2>
+<p>
+    Import2 API uses HTTP Basic Authentication. We expect to receive your API token as value of username parameter.
+    Here is an example of using API token through curl:
+</p>
+
+{% codeblock %}
+$ curl -u aafbdfde226327dafc73:X https://www.import2.com/api/v1/imports/3514012b6860e8
+{% endcodeblock %}
+
+<h2 id="sandbox">Sandbox</h2>
+....
+
+
