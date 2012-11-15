@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Import2 Developers API]]></title>
+  <title><![CDATA[Import2 API]]></title>
   <link href="http://developers.import2.com/atom.xml" rel="self"/>
   <link href="http://developers.import2.com/"/>
-  <updated>2012-11-13T22:07:03-08:00</updated>
+  <updated>2012-11-14T16:28:49-08:00</updated>
   <id>http://developers.import2.com/</id>
   <author>
     <name><![CDATA[Import2]]></name>
