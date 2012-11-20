@@ -128,7 +128,7 @@
 <h2 id="app-registration">Registering Your Application</h2>
 <p>
     Currently to register your app you have to contact us at
-    <a href="mailto:hassle.free.migration@import2.com">hassle.free.migration@import2.com&#8221;</a>.
+    <a href="mailto:hassle.free.migration@import2.com">hassle.free.migration@import2.com</a>.
     We will send you secret API token, which is required to perform API requests.
 </p>
 
@@ -192,7 +192,7 @@
     <dt>
         <span class="label label-important">401</span>
     </dt>
-    <dd>Unauthorized. Either not API token was included in the request or API token was invalid.</dd>
+    <dd>Unauthorized. Either no API token was included in the request or API token was invalid.</dd>
     <dt>
         <span class="label label-important">422</span>
     </dt>
@@ -204,7 +204,8 @@
 <h1 id="api-reference">API Reference</h1>
 <h2 id="post-imports">POST /imports</h2>
 <p>
-    Creates new import, but doesn&#8217;t start it.
+    Creates a partially initialized new import. Responds with the import id and URL of the page where your
+    customer should be redirected.
 </p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -227,13 +228,11 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>HTTP/1.1 422
 </span><span class='line'>Content-Type: application/json
 </span><span class='line'>
 </span><span class='line'>{
-</span><span class='line'>&#09;"source_instance_url":[], "source_username":[], "source_password":[],
-</span><span class='line'>&#09;"source":["Couldn't access your Posterous account due to: 401 Unauthorized"],
+</span><span class='line'>&#09;"source_tool":["is not supported"],
 </span><span class='line'>&#09;"destination_instance_url":[], "destination_username":[], "destination_password":["can't be blank"],
 </span><span class='line'>&#09;"destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
@@ -241,16 +240,22 @@
 <p>
     If validation succeeds and import was created, then response will have <strong>HTTP status
     <span class="label label-success">201</span>
-</strong> and body containing import identification:
+</strong> and body containing import identification and redirect URL:
 </p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>HTTP/1.1 201 Created
 </span><span class='line'>Content-Type: application/json
 </span><span class='line'>
-</span><span class='line'>{"id":"ae2cfc164cb94f67f735581d7f9a3c09"}</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>{
+</span><span class='line'>&#09;"id":"ae2cfc164cb94f67f735581d7f9a3c09",
+</span><span class='line'>&#09;"redirect_url":"https://www.import2.com/imports/7f735581d7f9a3c09/ae2cfc164cb94f67f735581d7f9a3c09"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 <h3>Properties</h3>
 
@@ -258,6 +263,7 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>Required?</th>
         <th>Description</th>
         <th>Example values</th>
     </tr>
@@ -265,6 +271,7 @@
     <tbody>
     <tr>
         <td>source_tool</td>
+        <td><em>optional</em></td>
         <td>Name of the source tool. Items will be exported from this tool to destination tool.</td>
         <td>
             &#8220;posterous&#8221;<br/>
@@ -272,30 +279,8 @@
         </td>
     </tr>
     <tr>
-        <td>source_instance_url</td>
-        <td>Url of the source tool instance.</td>
-        <td>
-            &#8220;http://myblog.posterous.com/&#8221;<br/>
-            &#8220;https://mycrop.highrisehq.com/&#8221;
-        </td>
-    </tr>
-    <tr>
-        <td>source_username</td>
-        <td>Username used to sign in into the source tool (or email address if they are used in source tool)</td>
-        <td>
-            &#8220;janeimport&#8221;<br/>
-            &#8220;jane.import@mycrop.com&#8221;
-        </td>
-    </tr>
-    <tr>
-        <td>source_password</td>
-        <td>Password used to sign in into the source tool</td>
-        <td>
-            &#8220;secretpassword123&#8221;
-        </td>
-    </tr>
-    <tr>
         <td>destination_tool</td>
+        <td><em>required</em></td>
         <td>Name of the destination tool. Items will be exported from source tool to this tool.</td>
         <td>
             &#8220;tumblr&#8221;<br/>
@@ -304,24 +289,27 @@
     </tr>
     <tr>
         <td>destination_instance_url</td>
+        <td><em>required</em></td>
         <td>Url of the destination tool instance.</td>
         <td>
             &#8220;http://myblog.tumblr.com/&#8221;<br/>
-            &#8220;https://mycrop.salesforce.com/&#8221;
+            &#8220;https://mycorp.salesforce.com/&#8221;
         </td>
     </tr>
     <tr>
         <td>destination_username</td>
+        <td><em>required</em></td>
         <td>
             Username used to sign in into the destination tool (or email address if they are used in destination tool)
         </td>
         <td>
             &#8220;janeimport&#8221;<br/>
-            &#8220;jane.import@mycrop.com&#8221;
+            &#8220;jane.import@mycorp.com&#8221;
         </td>
     </tr>
     <tr>
         <td>destination_password</td>
+        <td><em>required</em></td>
         <td>Password used to sign in into the destination tool (or api token)</td>
         <td>
             &#8220;secretpassword123&#8221;
@@ -329,12 +317,6 @@
     </tr>
     </tbody>
 </table>
-
-
-
-
-
-
   
 </article>
     </div>
