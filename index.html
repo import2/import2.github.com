@@ -96,6 +96,7 @@
             <a href="#api-reference">API Reference</a>
             <ul class="nav nav-list">
                 <li><a href="#post-imports">POST /imports</a></li>
+                <li><a href="#get-import">GET /import/:id</a></li>
             </ul>
         </li>
     </ul>
@@ -317,6 +318,47 @@
     </tr>
     </tbody>
 </table>
+
+<h2 id="get-import">GET /imports/:id</h2>
+<p>
+    Returns status of the import identified by a give id.
+</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
+</span><span class='line'>&#09;https://www.import2.com/api/v1/imports/my-import-id</span></code></pre></td></tr></table></div></figure>
+
+<p>
+    If import is not found, was cancelled or archived, then you will receive response with <strong>HTTP status
+    <span class="label label-important">404</span></strong>.
+</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HTTP/1.1 404</span></code></pre></td></tr></table></div></figure>
+
+<p>
+    If import exists &mdash; response will have <strong>HTTP status
+    <span class="label label-success">200</span>
+</strong> and body containing import identification, status and warnings (if there are any):
+</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HTTP/1.1 200 Ok
+</span><span class='line'>Content-Type: application/json
+</span><span class='line'>
+</span><span class='line'>{
+</span><span class='line'>&#09;"id":"my-import-id",
+</span><span class='line'>&#09;"status":"finished",
+</span><span class='line'>&#09;"warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
   
 </article>
     </div>
