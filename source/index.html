@@ -204,3 +204,38 @@ Content-Type: application/json
     </tr>
     </tbody>
 </table>
+
+<h2 id="get-import">GET /imports/:id</h2>
+<p>
+    Returns status of the import identified by a give id.
+</p>
+
+{% codeblock %}
+curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
+&#09;https://www.import2.com/api/v1/imports/my-import-id
+{% endcodeblock %}
+
+<p>
+    If import is not found, was cancelled or archived, then you will receive response with <strong>HTTP status
+    <span class="label label-important">404</span></strong>.
+</p>
+{% codeblock %}
+HTTP/1.1 404
+{% endcodeblock %}
+
+<p>
+    If import exists &mdash; response will have <strong>HTTP status
+    <span class="label label-success">200</span>
+</strong> and body containing import identification, status and warnings (if there are any):
+</p>
+{% codeblock %}
+HTTP/1.1 200 Ok
+Content-Type: application/json
+
+{
+&#09;"id":"my-import-id",
+&#09;"status":"finished",
+&#09;"warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
+}
+{% endcodeblock %}
+
