@@ -93,10 +93,23 @@
             </ul>
         </li>
         <li class="page">
+            <a href="#workflow">Workflow of Creating New Import</a>
+            <ul class="nav nav-list">
+                <li><a href="#workflow-steps">Step by Step Workflow</a></li>
+                <li><a href="#workflow-functionality">Functionality to Implement</a></li>
+            </ul>
+        </li>
+        <li class="page">
             <a href="#api-reference">API Reference</a>
             <ul class="nav nav-list">
                 <li><a href="#post-imports">POST /imports</a></li>
                 <li><a href="#get-import">GET /imports/:id</a></li>
+            </ul>
+        </li>
+        <li class="page">
+            <a href="#webhook-reference">Webhook Reference</a>
+            <ul class="nav nav-list">
+                <li><a href="#webhook-post-import">POST webhook</a></li>
             </ul>
         </li>
     </ul>
@@ -199,6 +212,80 @@
     </dt>
     <dd>The request was well-formed but was unable to be followed due to validation rules. Parse response body.</dd>
 </dl>
+
+<hr class="bs-docs-separator">
+
+<h1 id="workflow">Workflow of Creating New Import</h1>
+<h2 id="workflow-steps">Step by Step Workflow</h2>
+
+<p>Steps that are labelled with
+    <span class="label label-warning">Your App</span>
+    take place in your application.
+    <span class="label label-info">Import2</span>
+    labelled steps take place in Import2.
+</p>
+
+<dl class="dl-horizontal">
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>1. Customer clicks on &#8216;Import&#8217; link in your app</dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>2. Your app sends a <code>POST /imports</code> request to Import2</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        3. Import2 creates a partially initialized import and responds with import id and URL where your app should
+        redirect customer: <code>import2_redirect_url</code>
+    </dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>4. Your app stores import id and redirects customer to the <code>import2-redirect-url</code></p></dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>5. Customer enters credentials to access source data and starts the import</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        6. Import2 redirects customer to redirect URL of your app that was specified during your app registration:
+        <code>app_redirect_url</code> along with import id and import status
+    </dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>7. Your app displays import progress page to the customer</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        8. Import2 performs import and notifies your app about import progess via webhook URL that was specified during
+        your app registration: <code>app_webhook_url</code>
+    </dd>
+</dl>
+
+<h2 id="workflow-functionality">Functionality to Implement</h2>
+
+<p>This is the list of functionality that needs to be implemented in order to ensure the best experience for your
+    customers.</p>
+
+<ul>
+    <li>
+        Import page where customer is able to click on the tool she wishes to import her data from. Upon clicks your app
+        should send an API request to Import2 and process response by storing import id and redirecting customer to a
+        URL specified in response
+    </li>
+    <li>
+        Import status page where customer is redirected after starting her import and where she can follow the progress
+        of the import
+    </li>
+    <li>Webhook handler that is used by Import2 to notify your app about import progress</li>
+</ul>
 
 <hr class="bs-docs-separator">
 
@@ -331,7 +418,8 @@
 
 <p>
     If import is not found, was cancelled or archived, then you will receive response with <strong>HTTP status
-    <span class="label label-important">404</span></strong>.
+    <span class="label label-important">404</span>
+</strong>.
 </p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>HTTP/1.1 404</span></code></pre></td></tr></table></div></figure>
@@ -358,6 +446,32 @@
 </span><span class='line'>&#09;"warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
+<hr class="bs-docs-separator">
+
+<h1 id="webhook-reference">Webhook Reference</h1>
+<h2 id="webhook-post-import">POST webhook</h2>
+
+<p>
+    Sends import status updates to the webhook URL specified while registering your application via HTTP Post request.
+    Currently, webhook functionality <strong>doesn&#8217;t re-send import status</strong> if your app was unreachable or has
+    responded with an HTTP error. Payload example:
+</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Content-Type: application/json
+</span><span class='line'>
+</span><span class='line'>{
+</span><span class='line'>&#09;"id":"my-import-id",
+</span><span class='line'>&#09;"status":"in_progress",
+</span><span class='line'>&#09;"warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
 
   
 </article>
@@ -365,7 +479,7 @@
   </div>
   <footer role="contentinfo" class="page-footer"><hr>
 <p>
-  Copyright &copy; 2012 - Import2 -
+  Copyright &copy; 2013 - Import2 -
   <span class="credit"><a href="http://www.import2.com">http://www.import2.com</a></span>
 </p>
 
