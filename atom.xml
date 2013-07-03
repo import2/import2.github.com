@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Import2 API]]></title>
+  <link href="http://developers.import2.com/atom.xml" rel="self"/>
+  <link href="http://developers.import2.com/"/>
+  <updated>2013-01-02T17:00:45+02:00</updated>
+  <id>http://developers.import2.com/</id>
+  <author>
+    <name><![CDATA[Import2]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
