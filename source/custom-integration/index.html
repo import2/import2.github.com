@@ -1,0 +1,86 @@
+---
+layout: page
+title: false
+date: 2013-07-02 19:43
+comments: true
+sharing: true
+footer: false
+---
+
+<h1 id="workflow">Custom Form Integration</h1>
+
+<p>
+    Custom form integration gives you more flexibility at shaping the experience your
+    customer will have with Import2 at the cost of integrating directly with our API.
+</p>
+
+<h2 id="workflow-steps">Integration Scenario: Step by Step</h2>
+
+<p>Steps that are labelled with
+    <span class="label label-warning">Your App</span>
+    take place in your application.
+    <span class="label label-info">Import2</span>
+    labelled steps take place in Import2.
+</p>
+
+<dl class="dl-horizontal">
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>1. Customer clicks on 'Import' link in your app</dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>2. Your app sends a <code>POST /imports</code> request to Import2</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        3. Import2 creates a partially initialized import and responds with import id and URL where your app should
+        redirect customer: <code>import2_redirect_url</code>
+    </dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>4. Your app stores import id and redirects customer to the <code>import2-redirect-url</code></p></dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>5. Customer enters credentials to access source data and starts the import</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        6. Import2 redirects customer to redirect URL of your app that was specified during your app registration:
+        <code>app_redirect_url</code> along with import id and import status
+    </dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>7. Your app displays import progress page to the customer</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        8. Import2 performs import and notifies your app about import progess via webhook URL that was specified during
+        your app registration: <code>app_webhook_url</code>
+    </dd>
+</dl>
+
+<h2 id="workflow-functionality">Functionality to Implement</h2>
+
+<p>This is the list of functionality that needs to be implemented in order to ensure the best experience for your
+    customers.</p>
+
+<ul>
+    <li>
+        Import page where customer is able to click on the tool she wishes to import her data from. Upon clicks your app
+        should send an API request to Import2 and process response by storing import id and redirecting customer to a
+        URL specified in response
+    </li>
+    <li>
+        Import status page where customer is redirected after starting her import and where she can follow the progress
+        of the import
+    </li>
+    <li>Webhook handler that is used by Import2 to notify your app about import progress</li>
+</ul>

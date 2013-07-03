@@ -1,0 +1,25 @@
+---
+layout: page
+title: false
+date: 2013-07-02 19:43
+comments: true
+sharing: true
+footer: false
+---
+
+<h1 id="webhook-reference">Webhook Reference</h1>
+<p>
+    Sends import status updates to the webhook URL specified while registering your application via HTTP Post request.
+    Currently, webhook functionality <strong>doesn't re-send import status</strong> if your app was unreachable or has
+    responded with an HTTP error. Payload example:
+</p>
+
+{% codeblock %}
+Content-Type: application/json
+
+{
+    "id":"my-import-id",
+    "status":"in_progress",
+    "warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
+}
+{% endcodeblock %}

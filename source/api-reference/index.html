@@ -1,0 +1,269 @@
+---
+layout: page
+title: false
+date: 2013-07-02 19:43
+comments: true
+sharing: true
+footer: false
+---
+
+<h1 id="api-reference">API Reference</h1>
+
+<p>
+    <strong>This is API version 1.</strong> Make sure you are using <code>https://www.import2.com/api/v1</code> as base
+    URL for all your API requests.
+</p>
+
+<p>
+    <span class="label label-info">Heads up!</span>
+    Quite a few API methods are still being developed, including, ability to stop, cancel and clean up the import over
+    the API. Stay tuned for more!
+</p>
+
+<h2 id="authentication">Authentication</h2>
+<p>
+    Import2 API uses HTTP Basic Authentication. We expect to receive your API token as value of username parameter.
+    Here is an example of using API token through curl:
+</p>
+
+{% codeblock %}
+curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v1/imports/3514012b6860e8
+{% endcodeblock %}
+
+<h2 id="sandbox">Sandbox</h2>
+<p>
+    All of the API endpoints (unless stated otherwise) are also available at Sandbox API version: <code>https://www.import2.com/api/sandbox</code>
+    (i.e. just replace api version in the URL with 'sandbox').
+    Sandbox API endpoints behave exactly as real API, except:
+</p>
+
+<dl class="dl-horizontal">
+    <dt>POST/PUT</dt>
+    <dd>will run all the validation rules and send corresponding response, but will not actually create or update any
+        objects
+    </dd>
+    <dt>GET</dt>
+    <dd>will return pre-defined static responses</dd>
+    <dt>DELETE</dt>
+    <dd>will return pre-defined static responses, but will not actually delete any objects</dd>
+</dl>
+
+<p>
+    You can play with Sandbox API without being worried about hitting any limits or performing actual imports.
+</p>
+
+<p>
+    <span class="label label-info">Heads up!</span>
+    Sandbox mimics the behavior of the latest available API version! If you're developing against
+    version 1, but there is a version 2 already available, then Sandbox API will be behaving like API v2.
+</p>
+
+<h2 id="response-codes">Response Codes and Errors</h2>
+
+<p>
+    All requests and responses are encoded as JSON.
+</p>
+
+<p>
+    API uses HTTP status codes to inform you about request result. Here are the most frequently seen response codes and
+    their interpretation:
+</p>
+
+<dl class="dl-horizontal">
+    <dt>
+        <span class="label label-success">200</span>
+    </dt>
+    <dd>Request has succeeded. Parse response body.</dd>
+    <dt>
+        <span class="label label-success">201</span>
+    </dt>
+    <dd>Request has succeeded and object was created. Parse response body.</dd>
+    <dt>
+        <span class="label label-important">400</span>
+    </dt>
+    <dd>Request cannot be fulfilled due to bad syntax.</dd>
+    <dt>
+        <span class="label label-important">401</span>
+    </dt>
+    <dd>Unauthorized. Either no API token was included in the request or API token was invalid.</dd>
+    <dt>
+        <span class="label label-important">422</span>
+    </dt>
+    <dd>The request was well-formed but was unable to be followed due to validation rules. Parse response body.</dd>
+</dl>
+
+<h2 id="get-tools">GET /tools/:destination_tool</h2>
+<p>
+    Returns list of tools that are supported as data source for provided destination tool.
+</p>
+
+{% codeblock %}
+curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
+&#09;https://www.import2.com/api/v1/tools/my-tool-slug
+{% endcodeblock %}
+
+<p>
+    If provided destination tool is not found, then you will receive response with <strong>HTTP status
+    <span class="label label-important">404</span>
+</strong>.
+</p>
+{% codeblock %}
+HTTP/1.1 404
+{% endcodeblock %}
+
+<p>
+    If destination tool found &mdash; response will have <strong>HTTP status
+    <span class="label label-success">200</span>
+</strong> and body containing array of source tools including their names and slugs:
+</p>
+{% codeblock %}
+HTTP/1.1 200 Ok
+Content-Type: application/json
+
+{
+    [
+        {"name":"wordpress", "label":"Wordpress"},
+        {"name":"posterous", "label":"Posterous"},
+        {"name":"tumblr", "label":"Tumblr"}
+    ]
+}
+{% endcodeblock %}
+
+<h2 id="post-imports">POST /imports</h2>
+<p>
+    Creates a partially initialized new import. Responds with the import id and URL of the page where your
+    customer should be redirected.
+</p>
+
+{% codeblock %}
+curl -i -X POST -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
+    -d '{"source_tool":"posterous", "destination_tool":"tumblr", "destination_instance_url":"http://myblog.tumblr.com/", "destination_username":"username", "destination_password":"password"}' \
+    https://www.import2.com/api/v1/imports
+{% endcodeblock %}
+
+<p>
+    If validation fails, then you will receive response with <strong>HTTP status
+    <span class="label label-important">422</span>
+</strong> and body containing validation errors:
+</p>
+{% codeblock %}
+HTTP/1.1 422
+Content-Type: application/json
+
+{
+    "source_tool":["is not supported"],
+    "destination_instance_url":[], "destination_username":[], "destination_password":["can't be blank"],
+    "destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
+}
+{% endcodeblock %}
+
+<p>
+    If validation succeeds and import was created, then response will have <strong>HTTP status
+    <span class="label label-success">201</span>
+</strong> and body containing import identification and redirect URL:
+</p>
+{% codeblock %}
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{
+    "id":"ae2cfc164cb94f67f735581d7f9a3c09",
+    "redirect_url":"https://www.import2.com/imports/7f735581d7f9a3c09/ae2cfc164cb94f67f735581d7f9a3c09"
+}
+{% endcodeblock %}
+
+<h3>Properties</h3>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Required?</th>
+        <th>Description</th>
+        <th>Example values</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>source_tool</td>
+        <td><em>optional</em></td>
+        <td>Name of the source tool. Items will be exported from this tool to destination tool.</td>
+        <td>
+            "posterous"<br/>
+            "highrise"
+        </td>
+    </tr>
+    <tr>
+        <td>destination_tool</td>
+        <td><em>required</em></td>
+        <td>Name of the destination tool. Items will be exported from source tool to this tool.</td>
+        <td>
+            "tumblr"<br/>
+            "salesforce"
+        </td>
+    </tr>
+    <tr>
+        <td>destination_instance_url</td>
+        <td><em>optional</em></td>
+        <td>Url of the destination tool instance.</td>
+        <td>
+            "http://myblog.tumblr.com/"<br/>
+            "https://mycorp.salesforce.com/"
+        </td>
+    </tr>
+    <tr>
+        <td>destination_username</td>
+        <td><em>required</em></td>
+        <td>
+            Username used to sign in into the destination tool (or email address if they are used in destination tool)
+        </td>
+        <td>
+            "janeimport"<br/>
+            "jane.import@mycorporation.com"
+        </td>
+    </tr>
+    <tr>
+        <td>destination_password</td>
+        <td><em>required</em></td>
+        <td>Password used to sign in into the destination tool (or api token)</td>
+        <td>
+            "secretpassword123"
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2 id="get-import">GET /imports/:id</h2>
+<p>
+    Returns status of the import identified by the given id.
+</p>
+
+{% codeblock %}
+curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
+    https://www.import2.com/api/v1/imports/my-import-id
+{% endcodeblock %}
+
+<p>
+    If import is not found, was cancelled or archived, then you will receive response with <strong>HTTP status
+    <span class="label label-important">404</span>
+</strong>.
+</p>
+{% codeblock %}
+HTTP/1.1 404
+{% endcodeblock %}
+
+<p>
+    If import exists &mdash; response will have <strong>HTTP status
+    <span class="label label-success">200</span>
+</strong> and body containing import identification, status and warnings (if there are any):
+</p>
+{% codeblock %}
+HTTP/1.1 200 Ok
+Content-Type: application/json
+
+{
+    "id":"my-import-id",
+    "status":"finished",
+    "warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
+}
+{% endcodeblock %}

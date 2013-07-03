@@ -1,0 +1,117 @@
+---
+layout: page
+title: false
+date: 2013-07-02 19:43
+comments: true
+sharing: true
+footer: false
+---
+
+<h1 id="import2-button">Import2 Button</h1>
+
+<p>
+    The fastest and easiest way to start providing your customers with importing functionality is via Import2 Button.
+    All you will need to do is to paste an HTML snippet into a page in your app and set 3-4 options.
+</p>
+
+<h2 id="step-1">Step 1: Embedd The Button</h2>
+
+{% codeblock %}
+<form action="">
+    <script src="https://import2.com/assets/v1/import2.js"
+            data-api-token="aafbdfde226327dafc73"
+            data-destination-tool="tumblr"
+            data-destination-instance-url="http://myblog.tumblr.com/"
+            data-destination-username="username"
+            data-destination-password="password"
+            data-destination-option-additional_option_1="option 1"
+            data-destination-option-additional_option_2="option 2"
+            type="text/javascript"></script>
+</form>
+{% endcodeblock %}
+
+<h2 id="step-2">Step 2: Set Correct Values To Parameters</h2>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Required?</th>
+        <th>Description</th>
+        <th>Example values</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>data-api-token</td>
+        <td><em>required</em></td>
+        <td>Your Import2 API token.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>data-destination-tool</td>
+        <td><em>required</em></td>
+        <td>Name of the destination tool (you app). Items will be exported from source tool to this tool.</td>
+        <td>
+            "tumblr"<br/>
+            "salesforce"
+        </td>
+    </tr>
+    <tr>
+        <td>data-destination-instance-url</td>
+        <td><em>optional</em></td>
+        <td>Url of the destination tool instance.</td>
+        <td>
+            "http://myblog.tumblr.com/"<br/>
+            "https://mycorp.salesforce.com/"
+        </td>
+    </tr>
+    <tr>
+        <td>data-destination-username</td>
+        <td><em>required</em></td>
+        <td>
+            Username used to sign in into the destination tool (or email address if they are used in destination tool)
+        </td>
+        <td>
+            "janeimport"<br/>
+            "jane.import@mycorporation.com"
+        </td>
+    </tr>
+    <tr>
+        <td>data-destination-password</td>
+        <td><em>required</em></td>
+        <td>Password (or api token) used to sign in into the destination tool</td>
+        <td>
+            "secretpassword123"
+        </td>
+    </tr>
+    <tr>
+        <td>data-destination-option-xxx_yyy</td>
+        <td><em>optional</em></td>
+        <td>
+            If accessing API of destination tool requires additional properties, then you will need to provide them in
+            form of <strong>data-destination-option-#{propety_name}</strong>. Use '_' (underscore) to separate words in
+            property name.<br/>
+            <strong>data-destination-option-organization_id</strong><br/>
+            <strong>data-destination-option-refresh_token</strong>
+        </td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2 id="example">Example</h2>
+
+<p>Below is example of embeded Import2 Button</p>
+
+<form action="">
+    <script src="https://import2.com/assets/v1/import2.js"
+            data-api-token="d5d8babd448eed5e80189352d13a843f54f6e7202027558532a1e68042144179"
+            data-destination-tool="tumblr"
+            data-destination-instance-url="http://myblog.tumblr.com/"
+            data-destination-username="username"
+            data-destination-password="password"
+            data-destination-option-additional_option_1="option 1"
+            data-destination-option-additional_option_2="option 2"
+            type="text/javascript"></script>
+</form>
