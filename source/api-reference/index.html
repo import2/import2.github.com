@@ -92,9 +92,9 @@ curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v1/imports/3514012
     <dd>The request was well-formed but was unable to be followed due to validation rules. Parse response body.</dd>
 </dl>
 
-<h2 id="get-tools">GET /tools/:destination_tool</h2>
+<h2 id="get-tools">GET /tools</h2>
 <p>
-    Returns list of tools that are supported as data source for provided destination tool.
+    Returns list of tools that are supported as data source for your app.
 </p>
 
 {% codeblock %}
@@ -137,7 +137,7 @@ Content-Type: application/json
 
 {% codeblock %}
 curl -i -X POST -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
-    -d '{"source_tool":"posterous", "destination_tool":"tumblr", "destination_instance_url":"http://myblog.tumblr.com/", "destination_username":"username", "destination_password":"password"}' \
+    -d '{"source_tool":"posterous", "destination_instance_url":"http://myblog.tumblr.com/", "destination_username":"username", "destination_token":"token"}' \
     https://www.import2.com/api/v1/imports
 {% endcodeblock %}
 
@@ -152,7 +152,7 @@ Content-Type: application/json
 
 {
     "source_tool":["is not supported"],
-    "destination_instance_url":[], "destination_username":[], "destination_password":["can't be blank"],
+    "destination_instance_url":[], "destination_username":[], "destination_token":["can't be blank"],
     "destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
 }
 {% endcodeblock %}
@@ -186,20 +186,11 @@ Content-Type: application/json
     <tbody>
     <tr>
         <td>source_tool</td>
-        <td><em>optional</em></td>
+        <td><em>required</em></td>
         <td>Name of the source tool. Items will be exported from this tool to destination tool.</td>
         <td>
             "posterous"<br/>
             "highrise"
-        </td>
-    </tr>
-    <tr>
-        <td>destination_tool</td>
-        <td><em>required</em></td>
-        <td>Name of the destination tool. Items will be exported from source tool to this tool.</td>
-        <td>
-            "tumblr"<br/>
-            "salesforce"
         </td>
     </tr>
     <tr>
@@ -223,11 +214,11 @@ Content-Type: application/json
         </td>
     </tr>
     <tr>
-        <td>destination_password</td>
+        <td>destination_token</td>
         <td><em>required</em></td>
-        <td>Password used to sign in into the destination tool (or api token)</td>
+        <td>API token used to access destination tool</td>
         <td>
-            "secretpassword123"
+            "apitoken"
         </td>
     </tr>
     </tbody>
