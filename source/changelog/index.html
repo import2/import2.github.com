@@ -1,0 +1,38 @@
+---
+layout: page
+title: false
+date: 2013-08-27 18:31
+comments: true
+sharing: true
+footer: false
+---
+
+<h1>Changelog</h1>
+
+<h2>API v2 - August 2013</h2>
+
+<p>
+    API v2 includes only one significant change comparing to API v1: all imports created via API v2 start with a sample
+    migration. Full import is scheduled only after customer expresses her desire for it. This adds one additional step
+    into <a href="/custom-integration">Custom Integration</a> scenario: after the sample import is completed, customer
+    has ability to request the full import. This could happen either by sending an e-mail to your helpdesk or by
+    visiting a special page inside your app that explains required steps (e.g. upgrading from trial account to a paid
+    one)
+</p>
+
+<h3>Required Migration Steps</h3>
+<ol>
+    <li>
+        Update all of your API requests to use <code>https://www.import2.com/api/<strong>v2</strong></code> as a base URL.
+    </li>
+    <li>
+        Let us know if you prefer your customers to pay for the full import themselves or you would like to decide which
+        customers qualify for the free full import (i.e. you will be covering their migration costs). In case of the
+        former, if customer decides to perform a full import, she will be ask to purchase one of the Import2 paid packages.
+    </li>
+    <li>
+        If you have decided that you will be providing free full imports for qualifying customers, then let
+        us know where we should direct customers requesting a full import (after customer has seen the sample is
+        ready for full migration).
+    </li>
+</ol>

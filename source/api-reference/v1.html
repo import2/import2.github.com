@@ -10,7 +10,7 @@ footer: false
 <h1 id="api-reference">API Reference</h1>
 
 <p>
-    <strong>This is API version 2.</strong> Make sure you are using <code>https://www.import2.com/api/v2</code> as base
+    <strong>This is API version 1.</strong> Make sure you are using <code>https://www.import2.com/api/v1</code> as base
     URL for all your API requests.
 </p>
 
@@ -27,7 +27,7 @@ footer: false
 </p>
 
 {% codeblock %}
-curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v2/imports/3514012b6860e8
+curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v1/imports/3514012b6860e8
 {% endcodeblock %}
 
 <h2 id="sandbox">Sandbox</h2>
@@ -55,7 +55,7 @@ curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v2/imports/3514012
 <p>
     <span class="label label-info">Heads up!</span>
     Sandbox mimics the behavior of the latest available API version! If you're developing against
-    version 2, but there is a version 3 already available, then Sandbox API will be behaving like API v3.
+    version 1, but there is a version 2 already available, then Sandbox API will be behaving like API v2.
 </p>
 
 <h2 id="response-codes">Response Codes and Errors</h2>
@@ -99,7 +99,7 @@ curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v2/imports/3514012
 
 {% codeblock %}
 curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
-&#09;https://www.import2.com/api/v2/tools/my-tool-slug
+&#09;https://www.import2.com/api/v1/tools/my-tool-slug
 {% endcodeblock %}
 
 <p>
@@ -138,7 +138,7 @@ Content-Type: application/json
 {% codeblock %}
 curl -i -X POST -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
     -d '{"source_tool":"posterous", "destination_instance_url":"http://myblog.tumblr.com/", "destination_username":"username", "destination_token":"token"}' \
-    https://www.import2.com/api/v2/imports
+    https://www.import2.com/api/v1/imports
 {% endcodeblock %}
 
 <p>
@@ -231,7 +231,7 @@ Content-Type: application/json
 
 {% codeblock %}
 curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
-    https://www.import2.com/api/v2/imports/my-import-id
+    https://www.import2.com/api/v1/imports/my-import-id
 {% endcodeblock %}
 
 <p>

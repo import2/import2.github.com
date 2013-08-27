@@ -42,42 +42,28 @@ footer: false
     <dt>
         <span class="label label-warning">Your App</span>
     </dt>
-    <dd>4. Your app stores import id, import token, and redirects customer to the <code>import2-redirect-url</code></p>
-    </dd>
+    <dd>4. Your app stores import id and redirects customer to the <code>import2-redirect-url</code></p></dd>
     <dt>
         <span class="label label-info">Import2</span>
     </dt>
-    <dd>5. Customer enters credentials to access source data and starts the <strong>sample import</strong></dd>
-    <dt>
-        <span class="label label-info">Import2</span>
-    </dt>
-    <dd>
-        6. Import2 displays import progress page to the custom. Once <strong>sample import</strong> is completed,
-        Import2 notifies your app via webhook URL (specified during your app registration: <code>app_webhook_url</code>)
-        and customer via e-mail that sample import is ready for review
-    </dd>
+    <dd>5. Customer enters credentials to access source data and starts the import</dd>
     <dt>
         <span class="label label-info">Import2</span>
     </dt>
     <dd>
-        7. Customer decides that she would like to perform a <strong>full import</strong> and notifies you about her
-        desire (via visiting special page in your app or by sending an e-mail to your helpdesk). Import2 will
-        include import identification (import token) as a parameter to the special page, so, your app will be able to
-        identify the customer.
+        6. Import2 redirects customer to redirect URL of your app that was specified during your app registration:
+        <code>app_redirect_url</code> along with import id and import status
     </dd>
     <dt>
         <span class="label label-warning">Your App</span>
     </dt>
-    <dd>
-        8. Your app schedules a <strong>full import</strong> by sending a <code>PUT /imports/:id/purchase</code> request
-        to Import2 <em>(currently under development)</em>.
-    </dd>
+    <dd>7. Your app displays import progress page to the customer</dd>
     <dt>
         <span class="label label-info">Import2</span>
     </dt>
     <dd>
-        9. Import2 performs a full import and notifies your app about import progess via webhook URL that was specified
-        during your app registration: <code>app_webhook_url</code>
+        8. Import2 performs import and notifies your app about import progess via webhook URL that was specified during
+        your app registration: <code>app_webhook_url</code>
     </dd>
 </dl>
 
@@ -93,8 +79,8 @@ footer: false
         URL specified in response
     </li>
     <li>
-        (Optional) Page in you app, explaining how customer can be eligible for free full import. E.g. upgrade from
-        free/trial account to a paid plan
+        Import status page where customer is redirected after starting her import and where she can follow the progress
+        of the import
     </li>
-    <li>(Optional) Webhook handler that is used by Import2 to notify your app about import progress</li>
+    <li>Webhook handler that is used by Import2 to notify your app about import progress</li>
 </ul>
