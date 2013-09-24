@@ -99,20 +99,11 @@ curl -i -u aafbdfde226327dafc73:X https://www.import2.com/api/v2/imports/3514012
 
 {% codeblock %}
 curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
-&#09;https://www.import2.com/api/v2/tools/my-tool-slug
+&#09;https://www.import2.com/api/v2/tools
 {% endcodeblock %}
 
 <p>
-    If provided destination tool is not found, then you will receive response with <strong>HTTP status
-    <span class="label label-important">404</span>
-</strong>.
-</p>
-{% codeblock %}
-HTTP/1.1 404
-{% endcodeblock %}
-
-<p>
-    If destination tool found &mdash; response will have <strong>HTTP status
+    Response will have <strong>HTTP status
     <span class="label label-success">200</span>
 </strong> and body containing array of source tools including their names and slugs:
 </p>
