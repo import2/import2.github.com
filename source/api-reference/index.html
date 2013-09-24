@@ -246,6 +246,8 @@ Content-Type: application/json
 {
     "id":"my-import-id",
     "status":"finished",
+    "items":{"accounts":123, "contacts":234},
+    "users":{"source_tool":5, "destination_tool":4, "matched":3}
     "warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
 }
 {% endcodeblock %}
