@@ -9,17 +9,28 @@ footer: false
 
 <h1 id="webhook-reference">Webhook Reference</h1>
 <p>
-    Sends import status updates to the webhook URL specified while registering your application via HTTP Post request.
+    Import2 sends import status updates to the webhook URL specified while registering your application via HTTP Post request.
     Currently, webhook functionality <strong>doesn't re-send import status</strong> if your app was unreachable or has
-    responded with an HTTP error. Payload example:
+    responded with an HTTP error.
 </p>
 
+<p>Webhook URL is called in the following cases:</p>
+
+<ul>
+    <li>Customer has started a new import</li>
+    <li>Import2 has completed a sample import</li>
+    <li>Import2 has completed a full import</li>
+</ul>
+
+<p>Payload example:</p>
 {% codeblock %}
 Content-Type: application/json
 
 {
     "id":"my-import-id",
-    "status":"in_progress",
-    "warnings":{"attachments":{"attachment-id":{"name":"sales offer.doc", "parent_id":"email-id", "parent_item":"emails", "warning":"exceeds maximum size"}}}
+    "token":"my-import-unique-token",
+    "status_code":"scheduled",
+    "status":"Sample Import in Progress",
+    "users":{"source_tool":5, "destination_tool":4, "matched":3}
 }
 {% endcodeblock %}
