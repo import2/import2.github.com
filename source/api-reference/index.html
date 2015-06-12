@@ -112,11 +112,11 @@ HTTP/1.1 200 Ok
 Content-Type: application/json
 
 {
-    [
-        {"name":"wordpress", "label":"Wordpress"},
-        {"name":"posterous", "label":"Posterous"},
-        {"name":"tumblr", "label":"Tumblr"}
-    ]
+[
+{"name":"wordpress", "label":"Wordpress"},
+{"name":"posterous", "label":"Posterous"},
+{"name":"tumblr", "label":"Tumblr"}
+]
 }
 {% endcodeblock %}
 
@@ -128,8 +128,8 @@ Content-Type: application/json
 
 {% codeblock %}
 curl -i -X POST -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
-    -d '{"source_tool":"posterous", "destination_instance_url":"http://myblog.tumblr.com/", "destination_username":"username", "destination_token":"token"}' \
-    https://www.import2.com/api/v2/imports
+-d '{"source_tool":"posterous", "destination_instance_url":"http://myblog.tumblr.com/", "destination_username":"username", "destination_token":"token"}' \
+https://www.import2.com/api/v2/imports
 {% endcodeblock %}
 
 <p>
@@ -142,9 +142,9 @@ HTTP/1.1 422
 Content-Type: application/json
 
 {
-    "source_tool":["is not supported"],
-    "destination_instance_url":[], "destination_username":[], "destination_token":["can't be blank"],
-    "destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
+"source_tool":["is not supported"],
+"destination_instance_url":[], "destination_username":[], "destination_token":["can't be blank"],
+"destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
 }
 {% endcodeblock %}
 
@@ -158,9 +158,9 @@ HTTP/1.1 201 Created
 Content-Type: application/json
 
 {
-    "id":"789123",
-    "token":"ae2cfc164cb94f67f735581d7f9a3c09",
-    "redirect_url":"https://www.import2.com/imports/7f735581d7f9a3c09/ae2cfc164cb94f67f735581d7f9a3c09"
+"id":"789123",
+"token":"ae2cfc164cb94f67f735581d7f9a3c09",
+"redirect_url":"https://www.import2.com/imports/7f735581d7f9a3c09/ae2cfc164cb94f67f735581d7f9a3c09"
 }
 {% endcodeblock %}
 
@@ -223,7 +223,7 @@ Content-Type: application/json
 
 {% codeblock %}
 curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
-    https://www.import2.com/api/v2/imports/my-import-id
+https://www.import2.com/api/v2/imports/my-import-id
 {% endcodeblock %}
 
 <p>
@@ -245,11 +245,48 @@ HTTP/1.1 200 Ok
 Content-Type: application/json
 
 {
-    "id":"my-import-id",
-    "token":"my-import-unique-token",
-    "status_code":"finished",
-    "status":"Import Completed",
-    "items":{"accounts":123, "contacts":234},
-    "users":{"source_tool":5, "destination_tool":4, "matched":3}
+"id":"my-import-id",
+"token":"my-import-unique-token",
+"status_code":"finished",
+"status":"Import Completed",
+"items":{"accounts":123, "contacts":234},
+"users":{"source_tool":5, "destination_tool":4, "matched":3}
 }
 {% endcodeblock %}
+
+<h3>Import Statuses</h3>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+    <tr>
+        <th>Status</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Collecting Credentials</td>
+        <td>Customer is authorizing access to her source and destination applications.</td>
+    </tr>
+    <tr>
+        <td>Waiting to Start Sample Import</td>
+        <td>Customer has provided credentials, but hasn't started the sample import yet.</td>
+    </tr>
+    <tr>
+        <td>Sample Import in Progress</td>
+        <td>Sample import is currently in progress.</td>
+    </tr>
+    <tr>
+        <td>Sample Import Completed</td>
+        <td>Sample import has been finished. Customer can review imported data in your application.</td>
+    </tr>
+    <tr>
+        <td>Import in Progress</td>
+        <td>Full import is currently in progress.</td>
+    </tr>
+    <tr>
+        <td>Import Completed</td>
+        <td>Full import has been finished. Customer can start using her instance of your application.</td>
+    </tr>
+    </tbody>
+</table>
