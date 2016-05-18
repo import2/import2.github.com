@@ -111,13 +111,11 @@ curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
 HTTP/1.1 200 Ok
 Content-Type: application/json
 
-{
 [
-{"name":"wordpress", "label":"Wordpress"},
-{"name":"posterous", "label":"Posterous"},
-{"name":"tumblr", "label":"Tumblr"}
+  {"name":"wordpress", "label":"Wordpress"},
+  {"name":"posterous", "label":"Posterous"},
+  {"name":"tumblr", "label":"Tumblr"}
 ]
-}
 {% endcodeblock %}
 
 <h2 id="post-imports">POST /imports</h2>
@@ -142,9 +140,9 @@ HTTP/1.1 422
 Content-Type: application/json
 
 {
-"source_tool":["is not supported"],
-"destination_instance_url":[], "destination_username":[], "destination_token":["can't be blank"],
-"destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
+  "source_tool":["is not supported"],
+  "destination_instance_url":[], "destination_username":[], "destination_token":["can't be blank"],
+  "destination":["Couldn't access your Tumblr account due to: 401 Unauthorized"]
 }
 {% endcodeblock %}
 
@@ -158,9 +156,9 @@ HTTP/1.1 201 Created
 Content-Type: application/json
 
 {
-"id":"789123",
-"token":"ae2cfc164cb94f67f735581d7f9a3c09",
-"redirect_url":"https://www.import2.com/imports/7f735581d7f9a3c09/ae2cfc164cb94f67f735581d7f9a3c09"
+  "id":"789123",
+  "token":"ae2cfc164cb94f67f735581d7f9a3c09",
+  "redirect_url":"https://www.import2.com/imports/7f735581d7f9a3c09/ae2cfc164cb94f67f735581d7f9a3c09"
 }
 {% endcodeblock %}
 
@@ -198,7 +196,7 @@ Content-Type: application/json
         <td>destination_username</td>
         <td><em>required</em></td>
         <td>
-            Username used to sign in into the destination tool (or email address if they are used in destination tool)
+            Username used to sign in into the destination tool (or email address if it is used in destination tool)
         </td>
         <td>
             "janeimport"<br/>
@@ -215,6 +213,81 @@ Content-Type: application/json
     </tr>
     </tbody>
 </table>
+
+<h2 id="get-imports">GET /imports</h2>
+<p>
+    Returns list of all imports for the given username in the destination tool.
+</p>
+
+{% codeblock %}
+curl -i -X GET -u aafbdfde226327dafc73:X -H "Content-Type: application/json" \
+https://www.import2.com/api/v2/imports?destination_username=username
+{% endcodeblock %}
+
+<p>
+  If no imports found, then you will receive response with <strong>HTTP status
+  <span class="label label-success">200</span></strong> and response body will contain empty array
+</p>
+
+{% codeblock %}
+HTTP/1.1 200 Ok
+Content-Type: application/json
+
+[]
+{% endcodeblock %}
+
+<p>
+  If imports for such username exist, then response will contain list of such imports including their identifications and status:
+</p>
+
+{% codeblock %}
+HTTP/1.1 200 Ok
+Content-Type: application/json
+
+[
+  {
+    "id":"my-import-id-1",
+    "token":"my-import-unique-token-1",
+    "status":"Import Completed",
+    "items":{"accounts":123, "contacts":234},
+    "users":{"source_tool":5, "destination_tool":4, "matched":3}
+  },
+  {
+    "id":"my-import-id-2",
+    "token":"my-import-unique-token-2",
+    "status":"Sample Import in Progress",
+    "items":{"accounts":123, "contacts":234},
+    "users":{"source_tool":5, "destination_tool":4, "matched":3}
+  },
+]
+{% endcodeblock %}
+
+<h3>Parameters</h3>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Required?</th>
+        <th>Description</th>
+        <th>Example values</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>destination_username</td>
+        <td><em>required</em></td>
+        <td>
+            Username used to sign in into the destination tool (or email address if it is used in destination tool).
+        </td>
+        <td>
+            "janeimport"<br/>
+            "jane.import@mycorporation.com"
+        </td>
+      </tr>
+      </tbody>
+  </table>
+
 
 <h2 id="get-import">GET /imports/:id</h2>
 <p>
@@ -245,11 +318,11 @@ HTTP/1.1 200 Ok
 Content-Type: application/json
 
 {
-"id":"my-import-id",
-"token":"my-import-unique-token",
-"status":"Import Completed",
-"items":{"accounts":123, "contacts":234},
-"users":{"source_tool":5, "destination_tool":4, "matched":3}
+  "id":"my-import-id",
+  "token":"my-import-unique-token",
+  "status":"Import Completed",
+  "items":{"accounts":123, "contacts":234},
+  "users":{"source_tool":5, "destination_tool":4, "matched":3}
 }
 {% endcodeblock %}
 
