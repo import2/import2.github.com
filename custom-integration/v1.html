@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://developers.import2.com">
+  <link rel="canonical" href="http://developers.import2.com/custom-integration/v1.html">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -121,35 +121,83 @@
 <article role="article" class="span9">
 
   
-  <h1>Getting Started</h1>
+  <h1 id="workflow">Custom Form Integration</h1>
+
 <p>
-    Using Import2, you can provide customers of your application with a dead-simple migration process from the
-    app they are substituting with yours. With this guide we will explain and provide code snippets for all
-    common integration scenarios.
+    Custom form integration gives you more flexibility at shaping the experience your
+    customer will have with Import2 at the cost of integrating directly with our API.
 </p>
 
-<h2 id="app-registration">Registering Your Application</h2>
-<p>
-    Currently to register your app you have to contact us at
-    <a href="mailto:hassle.free.migration@import2.com">hassle.free.migration@import2.com</a>.
-    We will send you secret API token, which is required to perform API requests.
+<h2 id="workflow-steps">Integration Scenario: Step by Step</h2>
+
+<p>Steps that are labelled with
+    <span class="label label-warning">Your App</span>
+    take place in your application.
+    <span class="label label-info">Import2</span>
+    labelled steps take place in Import2.
 </p>
 
-<h2 id="next-step">Next Step</h2>
-<p>
-    The easiest way to start providing import functionality for your customers is via our <a href="/import2-button">Import2
-    Button</a> integration scenario. If you&#8217;d like to have a greated control over the customer experience, please take a
-    look at <a href="/custom-integration">Custom Integration</a> scenario along with <a href="/api-reference">API</a>
-    and <a href="/webhook-reference">Webhook</a> references.
-</p>
+<dl class="dl-horizontal">
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>1. Customer clicks on &#8216;Import&#8217; link in your app</dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>2. Your app sends a <code>POST /imports</code> request to Import2</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        3. Import2 creates a partially initialized import and responds with import id and URL where your app should
+        redirect customer: <code>import2_redirect_url</code>
+    </dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>4. Your app stores import id and redirects customer to the <code>import2-redirect-url</code></p></dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>5. Customer enters credentials to access source data and starts the import</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        6. Import2 redirects customer to redirect URL of your app that was specified during your app registration:
+        <code>app_redirect_url</code> along with import id and import status
+    </dd>
+    <dt>
+        <span class="label label-warning">Your App</span>
+    </dt>
+    <dd>7. Your app displays import progress page to the customer</dd>
+    <dt>
+        <span class="label label-info">Import2</span>
+    </dt>
+    <dd>
+        8. Import2 performs import and notifies your app about import progess via webhook URL that was specified during
+        your app registration: <code>app_webhook_url</code>
+    </dd>
+</dl>
 
-<h2 id="upgrading">Upgrading from Previous API Version</h2>
-<p>
-    If you&#8217;re upgrading from previous API version, then a good place to start is our <a href="/changelog">Changelog</a>.
-    It should explain what has changed since previous API version(s) and what is the easiest way to upgrade integration
-    between your app and Import2.
-</p>
+<h2 id="workflow-functionality">Functionality to Implement</h2>
 
+<p>This is the list of functionality that needs to be implemented in order to ensure the best experience for your
+    customers.</p>
+
+<ul>
+    <li>
+        Import page where customer is able to click on the tool she wishes to import her data from. Upon clicks your app
+        should send an API request to Import2 and process response by storing import id and redirecting customer to a
+        URL specified in response
+    </li>
+    <li>
+        Import status page where customer is redirected after starting her import and where she can follow the progress
+        of the import
+    </li>
+    <li>Webhook handler that is used by Import2 to notify your app about import progress</li>
+</ul>
   
 </article>
     </div>

@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://developers.import2.com">
+  <link rel="canonical" href="http://developers.import2.com/webhook-reference">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -121,34 +121,40 @@
 <article role="article" class="span9">
 
   
-  <h1>Getting Started</h1>
+  <h1 id="webhook-reference">Webhook Reference</h1>
 <p>
-    Using Import2, you can provide customers of your application with a dead-simple migration process from the
-    app they are substituting with yours. With this guide we will explain and provide code snippets for all
-    common integration scenarios.
+    Import2 sends import status updates to the webhook URL specified while registering your application via HTTP Post request.
+    Currently, webhook functionality <strong>doesn&#8217;t re-send import status</strong> if your app was unreachable or has
+    responded with an HTTP error.
 </p>
 
-<h2 id="app-registration">Registering Your Application</h2>
-<p>
-    Currently to register your app you have to contact us at
-    <a href="mailto:hassle.free.migration@import2.com">hassle.free.migration@import2.com</a>.
-    We will send you secret API token, which is required to perform API requests.
-</p>
+<p>Webhook URL is called in the following cases:</p>
 
-<h2 id="next-step">Next Step</h2>
-<p>
-    The easiest way to start providing import functionality for your customers is via our <a href="/import2-button">Import2
-    Button</a> integration scenario. If you&#8217;d like to have a greated control over the customer experience, please take a
-    look at <a href="/custom-integration">Custom Integration</a> scenario along with <a href="/api-reference">API</a>
-    and <a href="/webhook-reference">Webhook</a> references.
-</p>
+<ul>
+    <li>Customer has started a new import</li>
+    <li>Import2 has completed a sample import</li>
+    <li>Import2 has completed a full import</li>
+</ul>
 
-<h2 id="upgrading">Upgrading from Previous API Version</h2>
-<p>
-    If you&#8217;re upgrading from previous API version, then a good place to start is our <a href="/changelog">Changelog</a>.
-    It should explain what has changed since previous API version(s) and what is the easiest way to upgrade integration
-    between your app and Import2.
-</p>
+<p>Payload example:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Content-Type: application/json
+</span><span class='line'>
+</span><span class='line'>{
+</span><span class='line'>    "id":"my-import-id",
+</span><span class='line'>    "token":"my-import-unique-token",
+</span><span class='line'>    "status_code":"scheduled",
+</span><span class='line'>    "status":"Sample Import in Progress",
+</span><span class='line'>    "users":{"source_tool":5, "destination_tool":4, "matched":3}
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
   
 </article>
