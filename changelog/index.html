@@ -112,7 +112,29 @@
 <article role="article" class="span9">
 
   
-  <h1>Changelog</h1>
+<h1>Changelog</h1>
+
+<h2>API v2.1 - February 2023</h2>
+
+<ol>
+    <li>
+        Textual descriptions of import status in API responses and webhook payloads are now consistent with each other.
+    </li>
+    <li>
+        New set of API endpoints to accept or reject sponsorship of a migration.
+    </li>
+</ol>
+
+<h3>Required Migration Steps</h3>
+<ol>
+    <li>
+        Update all of your API requests to use <code>https://www.import2.com/api/<strong>v2.1</strong></code> as a base URL.
+    </li>
+    <li>
+        Make sure to update any code that depends on textual descriptions of import statuses using <a href="/#import-statuses">table of possible values</a>. 
+    </li>
+</ol>
+
 
 <h2>API v2 - August 2013</h2>
 
@@ -148,7 +170,7 @@
   </div>
   <footer role="contentinfo" class="page-footer"><hr>
 <p>
-  Copyright &copy; 2022 - Import2 -
+  Copyright &copy; 2023 - Import2 -
   <span class="credit"><a href="http://www.import2.com">http://www.import2.com</a></span>
 </p>
 
