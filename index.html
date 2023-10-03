@@ -324,7 +324,7 @@
                     <td>destination_username</td>
                     <td><em>optional</em></td>
                     <td>
-                        Username used to sign in into the destination tool (or email address if it is used in destination tool)
+                        Username used to sign in into the destination tool (or email address if it is used in destination tool).
                     </td>
                     <td>
                         &#8220;janeimport&#8221;<br/>
@@ -334,9 +334,18 @@
                 <tr>
                     <td>destination_token</td>
                     <td><em>optional</em></td>
-                    <td>API token used to access destination tool</td>
+                    <td>API token used to access destination tool.</td>
                     <td>
                         &#8220;apitoken&#8221;
+                    </td>
+                </tr>
+                <tr>
+                    <td>start_full</td>
+                    <td><em>optional</em></td>
+                    <td>A boolean flag to initiate immediate full migration, bypassing the sample migration step. It automatically designates the migration as sponsored by you. Default value is false.</td>
+                    <td>
+                        true<br/>
+                        false
                     </td>
                 </tr>
                 </tbody>
