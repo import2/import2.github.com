@@ -119,7 +119,7 @@
   
   <h1 id="webhook-reference">Webhook Reference</h1>
 <p>
-    Import2 sends import status updates to the webhook URL specified while registering your application via HTTP Post request.
+    Import2 sends migration status updates to the webhook URL specified while registering your application via HTTP Post request.
     Currently, webhook functionality <strong>doesn&#8217;t re-send import status</strong> if your app was unreachable or has
     responded with an HTTP error.
 </p>
@@ -127,9 +127,11 @@
 <p>Webhook URL is called in the following cases:</p>
 
 <ul>
-    <li>Customer has started a new import</li>
-    <li>Import2 has completed a sample import</li>
-    <li>Import2 has completed a full import</li>
+    <li>Customer has started a new migration</li>
+    <li>Import2 has completed the sample migration</li>
+    <li>Import2 has completed the full migration</li>
+    <li>Customer has started undo of the migration</li>
+    <li>Import2 has completed undo of the migration</li>
 </ul>
 
 <p>Payload example:</p>
