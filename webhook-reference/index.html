@@ -160,12 +160,12 @@
 
 <h2 id="webhook-verification">Verification</h2>
 <p>
-    Import2 support webhook payload verification through <code>X-Authorization-Content-SHA256</code> request header and <code>timestamp</code> property in the body of the webhook.
+    Import2 supports webhook payload verification through <code>X-Authorization-Content-SHA256</code> request header and <code>timestamp</code> property in the body of the webhook.
 </p>
 
 <h3>Payload verification</h3>
 <p>
-    Use provided <code>webhook secret</code> in order to generate a <code>SHA256</code> signature and compare it to the signature included in the <code>X-Authorization-Content-SHA256</code> header:
+    You can use provided <code>webhook secret</code> in order to generate a <code>SHA256</code> signature and compare it to the signature included in the <code>X-Authorization-Content-SHA256</code> header:
 </p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
