@@ -144,16 +144,61 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Content-Type: application/json
+</span><span class='line'>X-Authorization-Content-SHA256: abc
 </span><span class='line'>
 </span><span class='line'>{
 </span><span class='line'>    "id":"my-import-id",
 </span><span class='line'>    "token":"my-import-unique-token",
 </span><span class='line'>    "status_code":"scheduled",
 </span><span class='line'>    "status":"Sample Import in Progress",
-</span><span class='line'>    "users":{"source_tool":5, "destination_tool":4, "matched":3}
+</span><span class='line'>    "users":{"source_tool":5, "destination_tool":4, "matched":3},
+</span><span class='line'>    "timestamp":1708989523402
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
+<h2 id="webhook-verification">Verification</h2>
+<p>
+    Import2 support webhook payload verification through <code>X-Authorization-Content-SHA256</code> request header and <code>timestamp</code> property in the body of the webhook.
+</p>
+
+<h3>Payload verification</h3>
+<p>
+    Use a provided <code>webhook secret</code> in order to generate a <code>SHA256</code> and compare it to the signature included in the <code>X-Authorization-Content-SHA256</code> header:
+</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>received_signature = request.headers['X-Authorization-Content-SHA256']
+</span><span class='line'>local_signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), SECRET_KEY, request.body)
+</span><span class='line'>if received_signature == local_signature
+</span><span class='line'>    puts "Verified webhook message"
+</span><span class='line'>else
+</span><span class='line'>    raise "Tampered webhook message"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+<h3>Replay attack prevention</h3>
+<p>
+    Once the payload is verified, you can make sure that sent message was not retransmitted by checking that timestamp of the payload is not old:
+</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>message_time = JSON.parse(payload)['timestamp']
+</span><span class='line'>if Time.now - 10.sec > message_time
+</span><span class='line'>    puts "Valid webhook message"
+</span><span class='line'>else
+</span><span class='line'>    raise "Retransmitted webhook message"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+    
   
 </article>
     </div>
