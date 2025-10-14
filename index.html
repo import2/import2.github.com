@@ -216,27 +216,6 @@
             </p>
 
             <p>
-                Each response includes headers that provide information about the current rate limit status:
-            </p>
-
-            <dl class="dl-horizontal">
-                <dt>
-                    <code>X-RateLimit-Limit</code>
-                </dt>
-                <dd>The maximum number of requests allowed per second.</dd>
-
-                <dt>
-                    <code>X-RateLimit-Remaining</code>
-                </dt>
-                <dd>The number of requests remaining in the current one-second window.</dd>
-
-                <dt>
-                    <code>X-RateLimit-Reset</code>
-                </dt>
-                <dd>The time, in seconds, until the rate limit counters are reset.</dd>
-            </dl>
-
-            <p>
                 When the rate limit is exceeded, the API responds with status code <code>429</code>.
             </p>
 
