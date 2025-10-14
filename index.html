@@ -203,7 +203,42 @@
                     <span class="label label-important">422</span>
                 </dt>
                 <dd>The request was well-formed but was unable to be followed due to validation rules. Parse response body.</dd>
+                <dt>
+                    <span class="label label-important">429</span>
+                </dt>
+                <dd>The request was rejected due to exceeding the allowed rate limit.</dd>
             </dl>
+            
+            <h2 id="rate-limits">API Rate Limits</h2>
+
+            <p>
+                The API enforces a rate limit of 10 requests per second across all endpoints.
+            </p>
+
+            <p>
+                Each response includes headers that provide information about the current rate limit status:
+            </p>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    <code>X-RateLimit-Limit</code>
+                </dt>
+                <dd>The maximum number of requests allowed per second.</dd>
+
+                <dt>
+                    <code>X-RateLimit-Remaining</code>
+                </dt>
+                <dd>The number of requests remaining in the current one-second window.</dd>
+
+                <dt>
+                    <code>X-RateLimit-Reset</code>
+                </dt>
+                <dd>The time, in seconds, until the rate limit counters are reset.</dd>
+            </dl>
+
+            <p>
+                When the rate limit is exceeded, the API responds with status code <code>429</code>.
+            </p>
 
             <h2 id="get-tools">GET /tools</h2>
             <p>
